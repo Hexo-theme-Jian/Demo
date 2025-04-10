@@ -1,0 +1,8 @@
+<div class="card">
+    <%- partial('_header',side) %>
+    <div class="body type-text">
+        <% for(i in side.content){ %>
+            <%- markdown(side.content[i]) %>
+        <% } %>
+    </div>
+</div>

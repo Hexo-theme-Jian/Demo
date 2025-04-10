@@ -1,0 +1,147 @@
+<div class="qfriend_list grid" id="qfriend_list" style="width: 100%;justify-content: center !important;">
+    <span class="loading_i" style="border-color: #3B82F6;margin: 50px 0;"></span>
+</div>
+<h2><%= __('plugins.Qexo.friends.title') %></h2>
+<div id="friends-api" class="friend-api" style="text-align: center;">
+    <p><%= __('plugins.Qexo.friends.tip') %></p>
+    <div class="friend-api">
+        <input type="text" id="qexo_friend_name" class="input block"
+               placeholder="<%= __('plugins.Qexo.friends.input_placeholder.name') %>"><br>
+        <input type="text" id="qexo_friend_brief introduction" class="input block"
+               placeholder="<%= __('plugins.Qexo.friends.input_placeholder.introduction') %>"><br>
+        <input type="text" id="qexo_friend_website" class="input block"
+               placeholder="<%= __('plugins.Qexo.friends.input_placeholder.url') %>"><br>
+        <input type="text" id="qexo_friend_logo" class="input block"
+               placeholder="<%= __('plugins.Qexo.friends.input_placeholder.image') %>"><br>
+        <button id="friend-submit" type="button" class="btn bg-<%- theme.color.theme || "blue" %>"
+                onclick="friend_api()"><%= __('plugins.Qexo.friends.btn_text') %></button>
+    </div>
+    <br></div>
+<script sr>
+    function friends(url) {
+        var uri = url + "/pub/friends/";
+        var id = 'qfriend_list'
+        fetch(uri).then(function (data) {
+            if (data.ok) {
+                data.json().then(function (res) {
+                    if (res["status"]) {
+                        var friends = res["data"];
+                        document.getElementById(id).innerHTML = "";
+                        for (let i = 0; i < friends.length; i++) {
+                            document.getElementById(id).innerHTML +=
+                                `<a class="user-card" target="_blank" href="${friends[i].url}" title="${friends[i].description}">
+                                <img class="avatar" <%= (theme.plugins.lazyload.enable) ? 'lazyload' : 'src' %>="${friends[i].image}" height="60" width="60">
+                                <div class="info"><p class="name">${friends[i].name.slice(0, 6)}</p>
+                            <p class="introduction">${friends[i].description.slice(0, 8)}</p>
+                        </div>
+                        </a>`;
+                        }
+                        document.getElementById(id).innerHTML += '<br>';
+                        Jian.plugins.lazyload();
+                    } else {
+                        document.getElementById(id).innerHTML = '<%= __("plugins.Qexo.friends.error.load_error") %>'
+                        Jian.msg({
+                            title: '<%= __("plugins.Qexo.friends.msg_title") %>',
+                            text: '<%= __("plugins.Qexo.friends.error.load_error") %>',
+                            icon: 'fa-solid fa-triangle-exclamation',
+                            color: 'red'
+                        });
+                    }
+                })
+            } else {
+                document.getElementById(id).innerHTML = '<%= __("plugins.Qexo.friends.error.get_error") %>'
+                Jian.msg({
+                    title: '<%= __("plugins.Qexo.friends.msg_title") %>',
+                    text: '<%= __("plugins.Qexo.friends.error.get_error") %>',
+                    icon: 'fa-solid fa-triangle-exclamation',
+                    color: 'red'
+                });
+            }
+        })
+    }
+
+    qexo_url = "https://admin.yt-blog.top"
+    Qexo_reCaptcha_Key = ''
+
+    function friend_api() {
+        let ask = function (token = '') {
+            var name = document.getElementById('qexo_friend_name').value;
+            var introduction = document.getElementById('qexo_friend_brief introduction').value;
+            var website = document.getElementById('qexo_friend_website').value;
+            var logo = document.getElementById('qexo_friend_logo').value;
+            var uri = qexo_url + '/pub/ask_friend/';
+            if (!name || !website || !logo) {
+                Jian.msg({
+                    title: '<%= __("plugins.Qexo.friends.msg_title") %>',
+                    color: 'red',
+                    icon: 'fa-solid fa-triangle-exclamation',
+                    msg: '<%= __("plugins.Qexo.friends.error.unfull_error") %>'
+                });
+                return 0;
+            }
+            if (!/http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/.test(website) || !/http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/.test(logo)) {
+                Jian.msg({
+                    title: '<%= __("plugins.Qexo.friends.msg_title") %>',
+                    color: 'red',
+                    icon: 'fa-solid fa-triangle-exclamation',
+                    msg: '<%= __("plugins.Qexo.friends.error.url_error") %>'
+                });
+                return 0;
+            }
+            let body = {
+                name: name, url: website, image: logo, description: introduction
+            }
+            if (token) {
+                body["verify"] = token;
+            }
+            let data = ''
+            for (let i in body) {
+                data += `&${i}=${encodeURIComponent(body[i])}`
+            }
+            data = data.slice(1)
+            fetch(uri, {
+                method: 'post', body: data, headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function (data) {
+                if (data.ok) {
+                    data.json().then(function (res) {
+                        if (res["status"]) {
+                            Jian.msg({
+                                title: '<%= __("plugins.Qexo.friends.msg_title") %>',
+                                color: 'green',
+                                icon: 'fa-solid fa-check',
+                                msg: '<%= __("plugins.Qexo.friends.success.apply") %>'
+                            });
+                        } else {
+                            Jian.msg({
+                                title: '<%= __("plugins.Qexo.friends.msg_title") %>',
+                                color: 'red',
+                                icon: 'fa-solid fa-triangle-exclamation',
+                                msg: '<%= __("plugins.Qexo.friends.error.unknown_error") %>' + res["msg"]
+                            });
+                        }
+                    });
+                } else {
+                    Jian.msg({
+                        title: '<%= __("plugins.Qexo.friends.msg_title") %>',
+                        color: 'red',
+                        icon: 'fa-solid fa-triangle-exclamation',
+                        msg: '<%= __("plugins.Qexo.friends.error.network_error") %>'
+                    });
+                }
+            });
+        }
+        if (Qexo_reCaptcha_Key) {
+            grecaptcha.ready(function () {
+                grecaptcha.execute(reCaptcha, {action: 'submit'}).then(function (token) {
+                    ask(token)
+                });
+            });
+        } else {
+            ask()
+        }
+    }
+    document.querySelector("button#friend-submit").addEventListener("click", friend_api)
+    friends("https://admin.yt-blog.top")
+</script>

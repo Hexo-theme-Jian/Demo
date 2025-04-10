@@ -1,0 +1,44 @@
+<%
+function formatNumber(num) {
+  if (num >= 1e9) {
+    return (num / 1e9).toFixed(1) + '亿';
+  } else if (num >= 1e8) {
+    return (num / 1e8).toFixed(1) + '千万';
+  } else if (num >= 1e7) {
+    return (num / 1e7).toFixed(1) + '百万';
+  } else if (num >= 1e6) {
+    return (num / 1e6).toFixed(1) + '十万';
+  } else if (num >= 1e5) {
+    return (num / 1e5).toFixed(1) + '万';
+  } else if (num >= 1e3) {
+    return (num / 1e3).toFixed(1) + '千';
+  } else {
+    return num;
+  }
+}
+function formatNumberEng(num) {
+  if (num >= 1e9) {
+    return (num / 1e9).toFixed(1) + 'Y';
+  } else if (num >= 1e8) {
+    return (num / 1e8).toFixed(1) + 'KW';
+  } else if (num >= 1e5) {
+    return (num / 1e5).toFixed(1) + 'W';
+  } else if (num >= 1e3) {
+    return (num / 1e3).toFixed(1) + 'K';
+  } else {
+    return num;
+  }
+}
+%>
+
+<div class="card"><%- partial('_header', side) %><div class="body type-wordcount">
+        <div class="words"><span class="title">总字数</span><%= formatNumberEng(totalcount(site)) %></div>
+        <div class="ptc">
+            <div class="posts"><span class="title">文章数</span><span><%= formatNumberEng(site.posts.length) %></span></div>
+            <div class="categories"><span class="title">分类数</span><span><%= formatNumberEng(site.categories.length) %></span></div>
+            <div class="tags"><span class="title">标签数</span><span><%= formatNumberEng(site.tags.length) %></span></div>
+        </div>
+        <!--<div><span class="title">最后更新</span><span>3天前</span></div>
+        <div><span class="title">运行时间</span><span>3天前</span></div>-->
+    </div>
+</div>

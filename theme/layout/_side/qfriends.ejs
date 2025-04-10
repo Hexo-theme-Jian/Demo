@@ -1,0 +1,34 @@
+<div class="card">
+    <%- partial('_header',side) %>
+    <div class="body" id="QexoSideFriendsList">
+        <span class="loading_i" style="border-color:#3b82f6;margin:50px 0"></span>
+    </div>
+    <style>#QexoSideFriendsList{display:flex;flex-wrap:wrap;flex-direction:row;justify-content:center}.Qfriends_line{width:50px;height:50px;padding:5px;background:#fff0;border-radius:5px!important;margin:3px 0!important;display:flex;font-size:10px;overflow:hidden}.Qfriends_line:hover{background:#a4a4a485!important} .Qfriends_line img{border-radius:100%;width:100%;height:100%}</style>
+</div>
+<script sr>
+function loadQexoFriends(id, url) {
+    var uri = url + "/pub/friends/";
+    document.getElementById(id).className = "friend-content";
+    fetch(uri).then(function(data){
+        if (data.ok){
+            data.json().then(function(res){
+            if (res["status"]) {
+                    var friends = res["data"];
+                    let tmp = "";
+                    for (let i = 0; i < friends.length; i++) {
+                        tmp += `<div class="Qfriends_line"><a title="${friends[i]["name"]}" target="_blank" rel="noopener" href="${friends[i]["url"]}"><img alt="" <%=(theme.plugins.lazyload.enable)?'lazyload':'src'%>="${friends[i]["image"]}" <%=(theme.plugins.lazyload.enable)?'alt="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAACxMAAAsTAQCanBgAAAANSURBVBhXY2BgYGAAAAAFAAGKM+MAAAAAAElFTkSuQmCC"':''%>></a></div>`; 
+                    }
+                    document.getElementById(id).innerHTML = tmp;
+                    if (<%=(theme.plugins.lazyload.enable)?true:false%>) {
+                        Jian.plugins.lazyload()
+                    }
+                } else {
+                    alert("友链载入失败!");
+                }
+            });
+        } else {
+            alert("友链获取失败!");
+        }
+    });
+}
+loadQexoFriends("QexoSideFriendsList", "https://admin.yt-blog.top")</script>

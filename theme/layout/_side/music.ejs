@@ -1,0 +1,42 @@
+<script>
+  Jian.load.css('<%= (theme.plugins.music.css)?theme.plugins.music.css:`${theme.cdn.npm_cdn}/aplayer/dist/APlayer.min.css` %>')
+  Jian.load.js('<%= (theme.plugins.music.js)?theme.plugins.music.js.aplayer:`${theme.cdn.npm_cdn}/aplayer/dist/APlayer.min.js` %>', function() {
+      Jian.load.js('<%= (theme.plugins.music.js)?theme.plugins.music.js.meting:`${theme.cdn.npm_cdn}/meting/dist/Meting.min.js` %>')
+  })
+</script>
+<meting-js server="<%= theme.plugins.music.server %>" type="<%= theme.plugins.music.type %>" id="<%= theme.plugins.music.id %>"  class="side_music card"></meting-js>
+<style>
+	.side_music .aplayer {
+		padding: 0;
+    		border-radius: 0;
+    		margin: 0!important;
+		background: #0000;
+    		box-shadow: none;
+	}
+	
+	.side_music .aplayer .aplayer-pic {
+		height: 50px;
+    		width: 50px;
+    		border-radius: 100%;
+	}
+	
+	.side_music .aplayer .aplayer-info {
+    		margin-left: 50px;
+    		height: 50px;
+    		padding: 3px;
+		border-bottom: 0;
+	}
+	
+	.side_music .aplayer .aplayer-lrc {
+    		display: none;
+	}
+	
+	.side_music .aplayer .aplayer-list {
+    		display: none;
+	}
+	
+	.side_music {
+    		display: block;
+		height: 50px;
+	}
+</style>

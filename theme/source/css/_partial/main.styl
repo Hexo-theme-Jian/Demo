@@ -1,0 +1,53 @@
+.posts-ls {
+  .page-main {
+    display: flex;
+  }
+
+  .card {
+    float: left;
+    display: block;
+    margin: 8px 0;
+    width: 100%;
+    .headimg {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+    .post {
+      width: calc(100% - 100px);
+      padding: 30px 50px;
+    }
+  }
+
+  a {
+    color: #334155;
+  }
+
+  .post-title {
+    font-size: 25px;
+    display: flex;
+    justify-content: space-between;
+
+    svg.top-icon > path {
+      fill: #334155;
+    }
+  }
+
+  .post-meta {
+    margin-top: 16px;
+    font-size: 15px;
+    color: #BABABA;
+  }
+
+  h2 {
+    margin-top: 0;
+  }
+}
+
+.dark .posts-ls a {
+  color: #ffffffeb;
+}
+
+.dark .posts-ls .post-title svg.top-icon > path {
+  fill: #ffffffeb;
+}

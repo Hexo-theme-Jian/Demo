@@ -1,0 +1,78 @@
+<div class="index-background">
+    <h1><%= config.title %></h1>
+</div>
+<div class="posts-ls cm9 c9 p9 m12">
+    <% page.posts.each(function (post) { %>
+        <% if (post.pin) { %>
+            <div class="card">
+                <% if (post.headimg){ %>
+                    <img class="headimg" src="<%= post.headimg || '' %>" alt="<%= post.title %>">
+                <% } %>
+                <div class="post">
+                    <h2 class="post-title">
+                        <a class="post-title-link" href="<%- url_for(post.path) %>"><%= post.title %></a>
+                        <svg class="top-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                             viewBox="0 0 1024 1024">
+                            <path d="M896 96H128c-17.066667 0-32 14.933333-32 32S110.933333 160 128 160h768c17.066667 0 32-14.933333 32-32s-14.933333-32-32-32zM535.466667 296.533333c-12.8-12.8-32-12.8-44.8 0l-213.333334 213.333334c-12.8 12.8-12.8 32 0 44.8s32 12.8 44.8 0l157.866667-157.866667V853.333333c0 17.066667 14.933333 32 32 32s32-14.933333 32-32V396.8l157.866667 157.866667c6.4 6.4 14.933333 8.533333 23.466666 8.533333s17.066667-2.133333 23.466667-8.533333c12.8-12.8 12.8-32 0-44.8l-213.333333-213.333334z"></path>
+                        </svg>
+                    </h2>
+                    <div class="post-content" style="font-size: 15px;line-height: 1.6;">
+                        <%- post.excerpt || post.description || truncate(strip_html(post.content), {length: 150}) || post.content || '' %>
+                    </div>
+                    <div class="post-meta">
+                        <span class="post-time"><%- date(post.date, "YYYY-MM-DD") %></span>
+                        <% if (post.categories && post.categories.length > 0) { %>
+                            <span class="dot" aria-hidden="true"> · </span>
+                            <% for(cat of post.categories.toArray()){ %>
+                                <span>
+                            <a href="<%- url_for(cat.path) %>" itemprop="url"><span
+                                        itemprop="name"><%- cat.name %></span></a>
+                        </span>
+                            <% } %>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+    <% }) %>
+    <% page.posts.each(function (post) { %>
+        <% if (!post.pin) { %>
+            <div class="card">
+                <% if (post.headimg){ %>
+                    <img class="headimg" src="<%= post.headimg || '' %>" alt="<%= post.title %>">
+                <% } %>
+                <div class="post">
+                    <h2 class="post-title">
+                        <a class="post-title-link" href="<%- url_for(post.path) %>"><%= post.title %></a>
+                    </h2>
+                    <div class="post-content" style="font-size: 15px;line-height: 1.6;">
+                        <%- post.excerpt || post.description || truncate(strip_html(post.content), {length: 200}) || post.content || '' %>
+                    </div>
+                    <div class="post-meta">
+                        <span class="post-time"><%- date(post.date, "YYYY-MM-DD") %></span>
+                        <% if (post.categories && post.categories.length > 0) { %>
+                            <span class="dot" aria-hidden="true"> · </span>
+                            <% for(cat of post.categories.toArray()){ %>
+                                <span>
+                            <a href="<%- url_for(cat.path) %>" itemprop="url"><span
+                                        itemprop="name"><%- cat.name %></span></a>
+                        </span>
+                            <% } %>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+    <% }) %>
+    <% if (page.total > 0) { %>
+        <div class="btns" style="margin: auto;width: min-content;">
+            <% if (page.prev > 0) { %>
+                <a class="btn" href="/<%= page.prev_link %>" aria-label="上一页">&lt;</a>
+            <% } %>
+            <div class="btn"> <%= page.current %> </div>
+            <% if (page.next > 0) { %>
+                <a class="btn" href="/<%= page.next_link %>" aria-label="下一页">&gt;</a>
+            <% } %>
+        </div>
+    <% } %>
+</div>

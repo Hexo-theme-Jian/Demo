@@ -1,0 +1,224 @@
+menu:
+  首页: 
+    url: /
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16"><path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/></svg>'
+  友链: 
+    url: /friends/
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link-45deg" viewBox="0 0 16 16"><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1 1 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4 4 0 0 1-.128-1.287z"/><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243z"/></svg>'
+  标签: 
+    url: /tags/
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-star-fill" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5M8.16 4.1a.178.178 0 0 0-.32 0l-.634 1.285a.18.18 0 0 1-.134.098l-1.42.206a.178.178 0 0 0-.098.303L6.58 6.993c.042.041.061.1.051.158L6.39 8.565a.178.178 0 0 0 .258.187l1.27-.668a.18.18 0 0 1 .165 0l1.27.668a.178.178 0 0 0 .257-.187L9.368 7.15a.18.18 0 0 1 .05-.158l1.028-1.001a.178.178 0 0 0-.098-.303l-1.42-.206a.18.18 0 0 1-.134-.098z"/></svg>'
+  关于: 
+    url: /about/
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16"><path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2"/></svg>'
+cdn:
+  npm_cdn: https://cdn.smartcis.cn/npm/
+  github_cdn: https://cdn.smartcis.cn/gh/
+  cdnjs: https://cdn.smartcis.cn/cdnjs/
+  domain: # https://jsd.onmicrosoft.cn/gh/Fgaoxing/fgaoxing.github.io
+# 文章布局
+article:
+  pin_icon: volantis-static/media/twemoji/assets/svg/1f4cc.svg # https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f4cc.svg
+  # 文章顶部信息
+  # 从 meta_library 中取
+  top_meta: [ author, date, updated ] #启用评论数量需在此添加
+  # 文章底部信息
+  # 从 meta_library 中取
+  bottom_meta: [ updated, tags, share ]
+  # 参考资料、相关资料等 (for layout: post/docs)
+  plugins:
+    references:
+      title: 参考资料
+      icon: fa-solid fa-quote-left
+    # 在 front-matter 中:
+    #   references:
+    #     - title: 某篇文章
+    #       url: https://
+    # 即可显示此组件。
+    # ----------------
+    # 文章推荐 (for layout: post/docs)
+    # 推荐算法需要依赖中文分词工具，nodejieba只支持中英文 npm i nodejieba -S
+    recommended_article:
+      enable: false
+      layout: [ "post", "docs" ]
+      title: 推荐阅读
+      icon: fa-solid fa-bookmark
+      max_count: 6
+      placeholder_img: https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg
+      # 不展示文章推荐
+      # front-matter 使用 skip_recommended_article: true 关闭
+      # 不在以下文件夹文章中展示文章推荐 根目录是source/
+      skip_dirs:
+        - wiki/
+    # ----------------
+    # 相关文章，需要安装插件 (for layout: post)
+    # npm i hexo-related-popular-posts
+    related_posts:
+      enable: false
+      title: 相关文章
+      icon: fa-solid fa-bookmark
+      max_count: 5
+    # 设为空则不使用文章头图
+      placeholder_img: https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg
+    # ----------------
+    # 版权声明组件 (for layout: post)
+    copyright:
+      enable: true
+      permalink: '本文永久链接是：'
+      content:
+      - '博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议'
+      - permalink
+      # 自定义版权组件：精细到文章的版权声明
+      custom: false # 开启后替代上方内容的版权显示
+      customData:
+        default: type1  # 默认授权声明
+      #############################
+      # 你可以在文章的 front-matter 覆盖默认版权声明
+      # 配置示例（均可选）：
+      # copyright:
+      #   type: type3           # 当前文章版权声明类型
+      #   author: 张三          # 本文作者
+      #   ref:                  # 原文出处
+      #     title:              # 原文出处 - 标题
+      #     url:                # 原文出处 - 链接
+      #############################
+      rules:
+        type1:
+          text: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh#" target="_blank">CC BY-NC-SA 4.0</a>
+          desc: 署名-非商业性使用-相同方式共享 4.0 国际。
+        type2:
+          text: 禁止转载引用
+          desc: 除非获得原作者的单独授权，任何第三方不得转载！
+        type3:
+          text: 原作许可协议
+          desc: 本文转载自他站，转载或引用本文时，请遵守原作许可协议！
+        type4:
+          text: 来自互联网
+          desc: 本文来自互联网，未知来源，侵权请联系删除。
+        type5:
+          text: 允许规范转载
+          desc: 转载请保留本文转载地址，著作权归作者所有！
+        type6:
+          text: 允许付费转载
+          desc: 您可以联系作者通过付费方式获得授权。
+        # 还能自行添加更多
+    # ----------------
+    # 打赏组件 (for layout: post)
+    donate:
+      enable: false
+      images:
+        - volantis-static/media/org.volantis/blog/qrcode/github@volantis.png # https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/qrcode/github@volantis.png
+        - volantis-static/media/org.volantis/blog/qrcode/github@volantis.png # https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/qrcode/github@volantis.png
+    # meta library
+  meta:
+    author:
+      avatar: https://img.yt-blog.top/webp/logo.png
+      name: Fgaoxing
+      url: https://www.yt-blog.top/about/
+    # 文章创建日期
+    date:
+      icon: fa-solid fa-calendar-alt
+      title: '发布于：'
+      # 文章更新日期
+    updated:
+      icon: fa-solid fa-edit
+      title: '更新于：'
+      # 文章分类
+    category:
+      icon: fa-solid fa-folder-open
+    # 文章浏览计数
+    counter:
+      icon: fa-solid fa-eye
+      unit: '次浏览'
+    # waline 文章评论数量
+    walinecount:
+      icon: fa-solid fa-comment-dots
+      desc: '条评论' # 条评论
+    # artalk 文章评论数量
+    artalkcount:
+      icon: fa-solid fa-comment-dots
+      desc: '条评论' # 条评论
+    # 文章字数和阅读时长
+    wordcount:
+      icon_wordcount: fa-solid fa-keyboard
+      icon_duration: fa-solid fa-hourglass-half
+    # 文章标签
+    tags:
+      icon: fa-solid fa-hashtag
+    # 分享
+    share:
+      - id: qq
+        img: volantis-static/media/org.volantis/logo/128/qq.png #  https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png
+      - id: qzone
+        img: volantis-static/media/org.volantis/logo/128/qzone.png #  https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png
+      - id: weibo
+        img: volantis-static/media/org.volantis/logo/128/weibo.png #  https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png
+      - id: # qrcode # 当id为qrcode时需要安装插件  npm i hexo-helper-qrcode
+        img: # volantis-static/media/org.volantis/logo/128/wechat.png #  https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/wechat.png
+      - id: # telegram
+        img: # volantis-static/media/org.volantis/logo/128/telegram.png #  https://cdn.jsdelivr.net/gh/volanti
+cover:
+  type: full # half/full
+  name: Fgaoxing
+  avatar: #
+  bg_color: fff
+  bg_img: https://cdn2.chuqis.com/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg
+  text_color: fff
+post_list:
+  pin_icon: https://cdn2.chuqis.com/gh/twitter/twemoji@13.0/assets/svg/1f4cc.svg
+side:
+  post: [wordcount, gonggao, friends]
+  page: [wordcount, gonggao, friends]
+  data:
+    gonggao:
+      type: text
+      title: 公告
+      icon:
+      content:
+        - 本站重新进行调试，开始使用自己的主题，过程中，可能会对使用略有影响
+    lastup:
+      type: lastup
+      title: 最近文章
+        # --------------------------------------
+    # friends
+    friends:
+      type: qfriends
+      display: [desktop] # [desktop, mobile]
+      title: 友链
+      icon: fas fa-link
+      url: /friends/
+    # --------------------------------------
+    # wordcount
+    wordcount:
+        type: wordcount
+    
+    
+plugins:
+  lazyload:
+    enable: true
+  highlight:
+    enable: true
+    js: https://jsd.onmicrosoft.cn/gh/Fgaoxing/fgaoxing.github.io/js/highlight.js
+    css: https://jsd.onmicrosoft.cn/gh/dracula/highlightjs@master/dracula.css
+  music:
+    #  js:
+    #   aplayer: https://unpkg.com/aplayer@1.10/dist/APlayer.min.js
+    #   meting: https://unpkg.com/meting@2.0/dist/Meting.min.js
+    # css: https://unpkg.com/aplayer@1.10/dist/APlayer.min.css
+    server: tencent   # netease(网易云音乐), tencent(QQ音乐), kugou(酷狗音乐), xiami(虾米音乐), baidu(百度音乐)
+    type: playlist    # song(歌曲), playlist(播放列表), album(册), search(搜索), artist(艺术家)
+    id: 8318321951    # 可以填写 音乐ID / 音乐列表ID / 专辑ID / 搜索关键字 需要与上面的type参数的类型相同
+  cache:
+    enable: false
+    name: 'StaticCache'
+  aiSummary:
+    enable: false
+    api: https://ai.yt-blog.top
+    leagth: 200
+    key: #
+
+color:
+    theme: miku
+    
+footer:
+    - ""

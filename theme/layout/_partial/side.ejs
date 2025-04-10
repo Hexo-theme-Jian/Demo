@@ -1,0 +1,21 @@
+<% if (!sidels || sidels !== []) { %>
+    <div class="side c3 cm3 p3 m12 flex flex-column">
+        <% if ((is_post()||is_page())&&toc(page.content)) { %>
+        <div class="card toc">
+            <div class="body type-toc">
+            <%- toc(page.content) %>
+            </div>
+        </div>
+        <% } %>
+        <% for (i in sidels) {
+        if (sidels[i] in theme.side.data && theme.side.data[sidels[i]] != undefined) {
+                try { %>
+            <%- partial('../_side/' + theme.side.data[sidels[i]].type, {side: theme.side.data[sidels[i]]}) %>
+        <% }catch (e) {
+            //continue
+            console.log(e)
+            }
+        }
+        } %>
+    </div>
+<% } %>
